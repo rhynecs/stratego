@@ -23,7 +23,7 @@ class Board
     # print top horizontal axis
     x_axis = %w[a b c d e f g h i j]
     print ' ' * 4
-    x_axis.each { |letter| print Rainbow("#{letter}  ").white}
+    x_axis.each { |letter| print Rainbow("#{letter}  ").white }
     puts '', Rainbow(' ' * 3 + '-' * 30).white
 
     # print vertical axis and board
@@ -36,7 +36,7 @@ class Board
       i -= 1
     end
 
-    #print bottom horizontal axis
+    # print bottom horizontal axis
     puts Rainbow(' ' * 3 + '-' * 30).white
     print ' ' * 4
     x_axis.each { |letter| print Rainbow("#{letter}  ").white }
@@ -44,9 +44,19 @@ class Board
 
   # returns the contents of a cell from a grid_reference
   def return_cell(grid_ref)
-    # raise error
-    grid_ref.strip
+    grid_ref = grid_ref.strip
+    # returns an error if grid reference input is invalid
     return InvalidGridError.new unless /^[a-j][0-9]$/.match(grid_ref)
+
+    y_lookup = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+    x_lookup = { 'a' => 0, 'b' => 1, 'c' => 2, 'd' => 3, 'e' => 4, 'f' => 5, 'g' => 6, 'h' => 7, 'i' => 7, 'j' => 9 }
+    grid_letter = grid_ref.chars[0]
+    grid_number = grid_ref.chars[1].to_i
+
+    y_index = y_lookup[grid_number]
+    x_index = x_lookup[grid_letter]
+    # reverses the order of grid co-ordinates 1-9
+    @state[y_index][x_index]
   end
 end
 

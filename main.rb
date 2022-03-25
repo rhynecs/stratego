@@ -8,4 +8,4 @@ require './move.rb'
 game = Board.new
 game.render
 
-puts game.return_cell('fdasdfa').class
+puts game.return_cell("g1")
