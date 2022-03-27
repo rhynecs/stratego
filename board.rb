@@ -5,26 +5,26 @@ class Board
   attr_accessor :state
 
   DEFAULT_BOARD = [
-    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new,
-      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new],
-    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
-      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new],
-    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new,
-      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new],
-    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
-      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new],
-    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new,
-      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new],
-    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
-      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new],
-    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new,
-      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new],
-    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
-      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new],
-    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new,
-      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new],
-    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
-      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new]
+    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
+      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new],
+    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
+      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new],
+    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
+      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new],
+    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
+      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new],
+    [EmptyTile.new, EmptyTile.new, Water.new, Water.new, EmptyTile.new, 
+      EmptyTile.new, Water.new, Water.new, EmptyTile.new, EmptyTile.new],
+    [EmptyTile.new, EmptyTile.new, Water.new, Water.new, EmptyTile.new, 
+      EmptyTile.new, Water.new, Water.new, EmptyTile.new, EmptyTile.new],
+    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
+      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new],
+    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
+      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new],
+    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
+      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new],
+    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
+      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new]
   ]
 
   def initialize(board = DEFAULT_BOARD)
@@ -60,7 +60,7 @@ class Board
     # checks grid reference is sensible
     return InvalidGridError.new unless /^[a-j][0-9]$/.match(grid_ref)
 
-    # hard coded lookup tables
+    # hard coded lookups
     y_lookup = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
     x_lookup = { 'a' => 0, 'b' => 1, 'c' => 2, 'd' => 3, 'e' => 4, 'f' => 5, 'g' => 6, 'h' => 7, 'i' => 7, 'j' => 9 }
 
@@ -73,7 +73,7 @@ class Board
   end
 end
 
-# error for return_cell method
+# error class for return_cell method
 class InvalidGridError < StandardError
   def message
     'Grid co-ordinate out of range or invalid syntax'

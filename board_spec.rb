@@ -1,4 +1,5 @@
 require './board.rb'
+require './pieces.rb'
 
 describe Board do
   subject(:board) { Board.new }
@@ -16,7 +17,8 @@ describe Board do
       expect(board.return_cell('23')).to be_an_instance_of InvalidGridError
     end
 
-    it 'returns the correct grid element' do
-      expect(board.return_cell('a1').to eq '#'
+    it 'returns the correct grid element on the default board' do
+      expect(board.return_cell('a4')).to be_an_instance_of EmptyTile
+    end
   end
 end
