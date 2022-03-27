@@ -8,4 +8,6 @@ require './pieces.rb'
 game = Board.new
 game.render
 
-puts game.return_cell("g1")
+puts game.cell_index("g1")
+
+puts game.cell_contents("g1")

@@ -16,7 +16,7 @@ class Board
     [EmptyTile.new, EmptyTile.new, Water.new, Water.new, EmptyTile.new, 
       EmptyTile.new, Water.new, Water.new, EmptyTile.new, EmptyTile.new],
     [EmptyTile.new, EmptyTile.new, Water.new, Water.new, EmptyTile.new, 
-      EmptyTile.new, Water.new, Water.new, EmptyTile.new, EmptyTile.new],
+      General.new(true), Water.new, Water.new, EmptyTile.new, EmptyTile.new],
     [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
       EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new],
     [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
@@ -54,8 +54,7 @@ class Board
     x_axis.each { |letter| print Rainbow("#{letter}  ").white }
   end
 
-  # returns the contents of a cell from a grid_reference
-  def return_cell(grid_ref)
+  def cell_index(grid_ref)
     grid_ref = grid_ref.strip
     # checks grid reference is sensible
     return InvalidGridError.new unless /^[a-j][0-9]$/.match(grid_ref)
@@ -69,9 +68,21 @@ class Board
     grid_number = grid_ref.chars[1].to_i
     y_index = y_lookup[grid_number]
     x_index = x_lookup[grid_letter]
-    @state[y_index][x_index]
+    return [y_index, x_index]
+  end
+
+  # returns the contents of a cell from a grid_reference
+  def cell_contents(grid_ref)
+    board_index = self.cell_index(grid_ref)
+    @state[board_index[0]][board_index[1]]
+  end
+
+  def insert_to_cell
+    puts "hi"
   end
 end
+
+
 
 # error class for return_cell method
 class InvalidGridError < StandardError

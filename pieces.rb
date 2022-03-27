@@ -22,9 +22,8 @@ class General
   def initialize(player1 = true)
     @moveable = true
     @value = 9
-    @symbol = '9'
     @player1 = player1
-    if @player1.true? 
+    if @player1
       @symbol = Rainbow('9').red
     else
       @symbol = Rainbow('9').green
