@@ -11,10 +11,10 @@ describe Board do
     expect(board).to be_an_instance_of Board
   end
 
-  describe '#cell_contents' do
-    it 'returns the correct grid element on the default board' do
-      expect(board.cell_contents('a4')).to be_an_instance_of EmptyTile
-      expect(board.cell_contents('c4')).to be_an_instance_of Water
+  describe '#cell_index' do
+    it 'returns the correct index values to access a cell from the board array' do
+      expect(cell_index('b5')).to eq [4, 1]
+      expect(cell_index('j0')).to eq [9, 9]
     end
   end
 
@@ -24,5 +24,12 @@ describe Board do
       expect(board.insert_to_cell('a', [5, 9])).to eq board.state[5][9]
       expect(board.insert_to_cell('a', [2, 1])).to eq board.state[2][1]
     end
+  end
+end
+
+describe '#cell_contents' do
+  it 'returns the correct grid object on the default board' do
+    expect(board.cell_contents('a4')).to be_an_instance_of EmptyTile
+    expect(board.cell_contents('c4')).to be_an_instance_of Water
   end
 end

@@ -3,7 +3,7 @@ require './gameplay.rb'
 
 # Responsible for holding game state, rendering board and querying board information
 class Board
-  attr_accessor :state
+  attr_accessor :state, :player1_turn
 
   DEFAULT_BOARD = [
     [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
@@ -30,6 +30,7 @@ class Board
 
   def initialize(board = DEFAULT_BOARD)
     @state = board
+    @player1_turn = true
   end
 
   def render
@@ -64,6 +65,23 @@ class Board
   def insert_to_cell(contents, cell_index)
     @state[cell_index[0]][cell_index[1]] = contents
   end
+end
+
+
+# returns two cell index values from a grid-cordinate
+def cell_index(grid_ref)
+  grid_ref = grid_ref.strip
+
+  # hard coded lookups
+  y_lookup = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+  x_lookup = { 'a' => 0, 'b' => 1, 'c' => 2, 'd' => 3, 'e' => 4, 'f' => 5, 'g' => 6, 'h' => 7, 'i' => 7, 'j' => 9 }
+
+  # converts grid co-ordinates to equivalent array indicies
+  grid_letter = grid_ref.chars[0]
+  grid_number = grid_ref.chars[1].to_i
+  y_index = y_lookup[grid_number]
+  x_index = x_lookup[grid_letter]
+  [y_index, x_index]
 end
 
 
