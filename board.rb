@@ -1,4 +1,5 @@
 require './pieces.rb'
+require './gameplay.rb'
 
 # Responsible for holding game state, rendering board and querying board information
 class Board
@@ -16,7 +17,7 @@ class Board
     [EmptyTile.new, EmptyTile.new, Water.new, Water.new, EmptyTile.new, 
       EmptyTile.new, Water.new, Water.new, EmptyTile.new, EmptyTile.new],
     [EmptyTile.new, EmptyTile.new, Water.new, Water.new, EmptyTile.new, 
-      General.new(true), Water.new, Water.new, EmptyTile.new, EmptyTile.new],
+      General.new(false), Water.new, Water.new, EmptyTile.new, EmptyTile.new],
     [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
       EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new],
     [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
@@ -54,39 +55,18 @@ class Board
     x_axis.each { |letter| print Rainbow("#{letter}  ").white }
   end
 
-  def cell_index(grid_ref)
-    grid_ref = grid_ref.strip
-    # checks grid reference is sensible
-    return InvalidGridError.new unless /^[a-j][0-9]$/.match(grid_ref)
-
-    # hard coded lookups
-    y_lookup = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
-    x_lookup = { 'a' => 0, 'b' => 1, 'c' => 2, 'd' => 3, 'e' => 4, 'f' => 5, 'g' => 6, 'h' => 7, 'i' => 7, 'j' => 9 }
-
-    # converts grid co-ordinates to equivalent array indicies
-    grid_letter = grid_ref.chars[0]
-    grid_number = grid_ref.chars[1].to_i
-    y_index = y_lookup[grid_number]
-    x_index = x_lookup[grid_letter]
-    return [y_index, x_index]
-  end
-
   # returns the contents of a cell from a grid_reference
   def cell_contents(grid_ref)
-    board_index = self.cell_index(grid_ref)
+    board_index = cell_index(grid_ref)
     @state[board_index[0]][board_index[1]]
   end
 
-  def insert_to_cell
-    puts "hi"
+  def insert_to_cell(contents, cell_index)
+    @state[cell_index[0]][cell_index[1]] = contents
   end
 end
 
 
 
-# error class for return_cell method
-class InvalidGridError < StandardError
-  def message
-    'Grid co-ordinate out of range or invalid syntax'
-  end
-end
+
+

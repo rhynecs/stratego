@@ -4,10 +4,11 @@ Bundler.require(:default)
 
 require './board.rb'
 require './pieces.rb'
+require './gameplay.rb'
 
 game = Board.new
 game.render
 
-puts game.cell_index("g1")
+puts game.cell_contents('f4').player1
 
-puts game.cell_contents("g1")
+get_coordinates
