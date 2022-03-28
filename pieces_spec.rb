@@ -12,6 +12,7 @@ describe EmptyTile do
 
   it 'returns correct values' do
     expect(empty.moveable).to eq false
+    expect(empty.targetable).to eq true
     expect(empty.symbol).to eq Rainbow('■').white
   end
 end
@@ -26,6 +27,7 @@ describe Water do
 
   it 'has correct values' do
     expect(water.moveable).to eq false
+    expect(water.targetable).to eq false
     expect(water.symbol).to eq Rainbow('■').blue
   end
 end
@@ -38,6 +40,7 @@ describe Piece do
   end
 
   it 'can initialize values with given parameters correctly' do
+    expect(piece.targetable).to eq true
     expect(piece.player1).to eq false
     expect(piece.moveable).to eq false
     expect(piece.value).to eq 5
