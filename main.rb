@@ -10,6 +10,6 @@ game = Board.new
 game.render
 
 
-puts game.cell_contents('f4').player1
+puts game.cell_contents('f4')
 
 get_coordinates

@@ -6,26 +6,26 @@ class Board
   attr_accessor :state, :player1_turn
 
   DEFAULT_BOARD = [
-    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
-      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new],
-    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
-      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new],
-    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
-      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new],
-    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
-      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new],
+    [Major.new(false), Lieutenant.new(false), Miner.new(false), Miner.new(false), Miner.new(false), 
+      Captain.new(false), Bomb.new(false), Sergeant.new(false), Bomb.new(false), Flag.new(false)],
+    [Captain.new(false), Scout.new(false), Captain.new(false), Sergeant.new(false), Lieutenant.new(false), 
+      Scout.new(false), Scout.new(false), Bomb.new(false), Sergeant.new(false), Bomb.new(false)],
+    [Scout.new(false), Major.new(false), Scout.new(false), Scout.new(false), Marshall.new(false), 
+      Major.new(false), Captain.new(false), Miner.new(false), Bomb.new(false), Sergeant.new(false)],
+    [Lieutenant.new(false), Scout.new(false), Colonel.new(false), Miner.new(false), Lieutenant.new(false), 
+      Scout.new(false), Colonel.new(false), Spy.new(false), General.new(false), Bomb.new(false)],
     [EmptyTile.new, EmptyTile.new, Water.new, Water.new, EmptyTile.new, 
       EmptyTile.new, Water.new, Water.new, EmptyTile.new, EmptyTile.new],
     [EmptyTile.new, EmptyTile.new, Water.new, Water.new, EmptyTile.new, 
-      General.new(false), Water.new, Water.new, EmptyTile.new, EmptyTile.new],
-    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
-      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new],
-    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
-      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new],
-    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
-      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new],
-    [EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, 
-      EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new, EmptyTile.new]
+      EmptyTile.new, Water.new, Water.new, EmptyTile.new, EmptyTile.new],
+    [Scout.new, Scout.new, Scout.new, Scout.new, Bomb.new, 
+      Bomb.new, Scout.new, Lieutenant.new, Bomb.new, Bomb.new],
+    [Major.new, Captain.new, Miner.new, Scout.new, Captain.new, 
+      Lieutenant.new, Colonel.new, Captain.new, Sergeant.new, Sergeant.new],
+    [Bomb.new, Marshall.new, Colonel.new, Scout.new, General.new, 
+      Major.new, Miner.new, Major.new, Captain.new, Lieutenant.new],
+    [Flag.new, Bomb.new, Miner.new, Scout.new, Spy.new, 
+      Lieutenant.new, Miner.new, Sergeant.new, Miner.new, Sergeant.new]
   ]
 
   def initialize(board = DEFAULT_BOARD)
