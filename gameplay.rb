@@ -2,19 +2,47 @@
 module Gameplay
   def move
     begin
+      # check move validity
       coordinates = user_coordinates
       valid_move_distance(coordinates)
-      valid_tile_selected(coordinates[0])
+      valid_origin_selected(coordinates[0])
       valid_target_selected(coordinates[1])
     rescue InvalidMove => e
       puts e.message
       retry
+    end
+    update_board(coordinates)
+    render
+  end
+
+  def update_board(coordinates)
+    if cell_contents(coordinates[1]).player1.nil?
+      insert_to_cell(cell_contents(coordinates[0]), coordinates[1])
+      insert_to_cell(EmptyTile.new, coordinates[0])
+    else
+      battle(coordinates)
+    end
+    @player1_turn = !@player1_turn
+  end
+
+  def battle(coordinates)
+    attacker_value = cell_contents(coordinates[0]).value
+    defender_value = cell_contents(coordinates[1]).value
+    if attacker_value > defender_value
+      insert_to_cell(cell_contents(coordinates[0]), coordinates[1])
+      insert_to_cell(EmptyTile.new, coordinates[0])
+    elsif attacker_value < defender_value
+      insert_to_cell(EmptyTile.new, coordinates[0])
+    else
+      insert_to_cell(EmptyTile.new, coordinates[0])
+      insert_to_cell(EmptyTile.new, coordinates[1])
     end
   end
 
   def user_coordinates(coordinates = '')
     # repeats prompting until user inputs a string
     while coordinates.empty?
+      puts ''
       puts 'Enter coordinate values:'
       coordinates = gets
     end
@@ -28,7 +56,6 @@ module Gameplay
         raise InvalidUserInput
       end
     end
-
     coordinates
   end
 
@@ -50,17 +77,27 @@ module Gameplay
 
   # checks if selected tile is valid to be moved.
   # must be have the moveable parameter and belong to the player whose turn it is.
-  def valid_tile_selected(coordinate)
-    moveable = self.cell_contents(coordinate).moveable
-    player1 = self.cell_contents(coordinate).player1
+  def valid_origin_selected(coordinate)
+    moveable = cell_contents(coordinate).moveable
+    player1 = cell_contents(coordinate).player1
 
-    if (self.player1_turn == player1) && moveable
+    if (@player1_turn == player1) && moveable
       true
     else
       raise InvalidMove
     end
   end
 
+  def valid_target_selected(coordinate)
+    targetable = cell_contents(coordinate).targetable
+    player1 = cell_contents(coordinate).player1
+
+    if (@player1_turn != player1) && targetable
+      true
+    else
+      raise InvalidMove
+    end
+  end
   
   # returns two cell index values from a grid coordinate
   def cell_index(coordinate)
@@ -77,8 +114,8 @@ module Gameplay
     x_index = x_lookup[grid_letter_equiv]
     [y_index, x_index]
   end
-  
 end
+
 # error class for invalid user input method
 class InvalidUserInput < StandardError
   def message

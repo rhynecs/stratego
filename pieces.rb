@@ -32,7 +32,7 @@ class Water < Piece
   attr_reader :player1, :moveable, :value, :symbol
 
     def initialize(player1 = nil)
-    super(player1: nil, moveable: false, value: 10, icon: '■')
+      super(player1: nil, moveable: false, value: 10, icon: '■')
       @symbol = Rainbow('■').blue
       @targetable = false
     end

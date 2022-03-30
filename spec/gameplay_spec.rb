@@ -1,6 +1,6 @@
-require './gameplay.rb'
-require './board.rb'
-require './pieces.rb'
+require './gameplay'
+require './board'
+require './pieces'
 
 describe Board do
   subject(:board) { Board.new }
@@ -20,24 +20,6 @@ describe Board do
     end
   end
 
-  describe '#valid_tile_selected' do
-    it 'returns true with a valid tile selection' do
-      expect(board.valid_tile_selected('j0')).to eq true
-      expect(board.valid_tile_selected('e0')).to eq true
-      expect(board.valid_tile_selected('a3')).to eq true
-    end
-    it 'raises InvalidMove exception with invalid selection' do
-      # opponent tile
-      expect { board.valid_tile_selected('a6') }.to raise_error(InvalidMove)
-      # bomb
-      expect { board.valid_tile_selected('e3') }.to raise_error(InvalidMove)
-      # empty tile
-      expect { board.valid_tile_selected('a4') }.to raise_error(InvalidMove)
-      # water
-      expect { board.valid_tile_selected('c4') }.to raise_error(InvalidMove)
-    end
-  end
-
   describe '#valid_move_distance' do
     it 'returns true with a valid move distance' do
       expect(board.valid_move_distance(%w[b3 b4])).to eq true
@@ -51,7 +33,40 @@ describe Board do
       expect { board.valid_move_distance(%w[b3 b9]) }.to raise_error(InvalidMove)
       expect { board.valid_move_distance(%w[b3 j3]) }.to raise_error(InvalidMove)
       expect { board.valid_move_distance(%w[b3 e9]) }.to raise_error(InvalidMove)
-    end  
+    end
+  end
+
+  describe '#valid_origin_selected' do
+    it 'returns true with a valid tile selection' do
+      expect(board.valid_origin_selected('j0')).to eq true
+      expect(board.valid_origin_selected('e0')).to eq true
+      expect(board.valid_origin_selected('a3')).to eq true
+    end
+    it 'raises InvalidMove exception with invalid selection' do
+      # opponent tile
+      expect { board.valid_origin_selected('a6') }.to raise_error(InvalidMove)
+      # bomb
+      expect { board.valid_origin_selected('e3') }.to raise_error(InvalidMove)
+      # empty tile
+      expect { board.valid_origin_selected('a4') }.to raise_error(InvalidMove)
+      # water
+      expect { board.valid_origin_selected('c4') }.to raise_error(InvalidMove)
+    end
+  end
+
+  describe '#valid_target_selected' do
+    it 'returns true with a valid target selection' do
+      # enemy tiles
+      expect(board.valid_target_selected('a6')).to eq true
+      expect(board.valid_target_selected('e9')).to eq true
+      expect(board.valid_target_selected('f9')).to eq true
+    end
+    it 'raises error with invalid target selection' do
+      # friendly tile
+      expect { board.valid_target_selected('a3') }.to raise_error(InvalidMove)
+      # water
+      expect { board.valid_target_selected('c4') }.to raise_error(InvalidMove)
+    end
   end
 
   describe '#cell_index' do

@@ -2,11 +2,13 @@ require 'rubygems'
 require 'bundler/setup'
 Bundler.require(:default)
 
-require './board.rb'
-require './pieces.rb'
-require './gameplay.rb'
+require './board'
+require './pieces'
+require './gameplay'
 
 game = Board.new
 game.render
 
-game.user_coordinates
+while true
+    game.move
+end

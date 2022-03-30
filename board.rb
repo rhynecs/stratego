@@ -1,5 +1,5 @@
-require './pieces.rb'
-require './gameplay.rb'
+require './pieces'
+require './gameplay'
 require 'rubygems'
 require 'bundler/setup'
 Bundler.require(:default)
