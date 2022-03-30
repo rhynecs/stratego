@@ -1,48 +1,81 @@
 # gets two coordinates from user input. Prompts until valid input is recieved.
-def get_coordinates
-  # repeats prompting until user inputs a string
-  coordinates = ''
-  while coordinates.empty?
-    puts 'Enter coordinate values '
-    coordinates = gets.chomp.split(' ')
-  end
-  # raises error if coordinates are the same or there is only one coordinate
-  raise InvalidUserInput if coordinates[0] == coordinates[1] || coordinates.length != 2
-  # raises error unless grid reference is of the correct syntax and in range
-  raise InvalidUserInput unless coordinates.each { |grid_ref| /^[a-j][0-9]$/.match(grid_ref) }
-
-  return coordinates
-end
-
-def move
-  until valid_tile && valid_target
+module Gameplay
+  def move
     begin
-      coordinates = get_coordinates
-      raise InvalidMove unless valid_tile_selected(coordinates)
-      valid 
-      raise InvalidMove unless true
+      coordinates = user_coordinates
+      valid_move_distance(coordinates)
+      valid_tile_selected(coordinates[0])
+      valid_target_selected(coordinates[1])
     rescue InvalidMove => e
       puts e.message
       retry
     end
   end
-end
 
-def valid_target_selected
+  def user_coordinates(coordinates = '')
+    # repeats prompting until user inputs a string
+    while coordinates.empty?
+      puts 'Enter coordinate values:'
+      coordinates = gets
+    end
+    coordinates = coordinates.chomp.split(' ')
+    if coordinates[0] == coordinates[1]
+      raise InvalidUserInput
+    end
 
-end
+    coordinates.each do |grid_ref|
+      unless (/^[a-j][0-9]$/.match?(grid_ref))
+        raise InvalidUserInput
+      end
+    end
 
-# checks if selected tile is valid to be moved.
-# must be have the moveable parameter and belong to the player whose turn it is.
-def valid_tile_select(coordinate)
-  cell = game.cell_contents(coordinate)
-  if game.player1_turn == cell.player1 && cell.moveable
-    return true
-  else
-    raise InvalidMove
+    coordinates
   end
-end
 
+  # checks that the distance the selected tile moves is
+  def valid_move_distance(coordinates)
+    y1 = cell_index(coordinates[0])[0]
+    y2 = cell_index(coordinates[1])[0]
+    x1 = cell_index(coordinates[0])[1]
+    x2 = cell_index(coordinates[1])[1]
+
+    y_dist = abs(y1 - y2)
+    x_dist = abs(x1 - x2)
+
+    unless (x_dist == 1 && y_dist.zero?) || (x_dist.zero? && y_dist == 1)
+      raise InvalidMove
+    end
+  end
+
+  # checks if selected tile is valid to be moved.
+  # must be have the moveable parameter and belong to the player whose turn it is.
+  def valid_tile_selected(coordinate)
+    moveable = self.cell_contents(coordinate).moveable
+    player1 = self.cell_contents(coordinate).player1
+    if (self.player1_turn == player1) && moveable
+      return true
+    else
+      raise InvalidMove
+    end
+  end
+
+  # returns two cell index values from a grid coordinate
+  def cell_index(coordinate)
+    coordinate = coordinate.strip
+
+    # hard coded lookups
+    y_lookup = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+    x_lookup = { 'a' => 0, 'b' => 1, 'c' => 2, 'd' => 3, 'e' => 4, 'f' => 5, 'g' => 6, 'h' => 7, 'i' => 7, 'j' => 9 }
+
+    # converts grid co-ordinates to equivalent array indicies
+    grid_letter_equiv = coordinate.chars[0]
+    grid_number_equiv = coordinate.chars[1].to_i
+    y_index = y_lookup[grid_number_equiv]
+    x_index = x_lookup[grid_letter_equiv]
+    [y_index, x_index]
+  end
+  
+end
 # error class for invalid user input method
 class InvalidUserInput < StandardError
   def message

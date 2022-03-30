@@ -1,4 +1,3 @@
-Bundler.require(:default)
 
 require './pieces.rb'
 
@@ -46,13 +45,5 @@ describe Piece do
     expect(piece.value).to eq 5
     expect(piece.icon).to eq '3'
     expect(piece.symbol).to eq Rainbow('3').green
-  end
-  
-  it 'can initialize values with default parameters correctly' do
-    expect(Piece.new.player1).to eq true
-    expect(Piece.new.moveable).to eq true
-    expect(Piece.new.value).to eq 9
-    expect(Piece.new.icon).to eq '9'
-    expect(Piece.new.symbol).to eq Rainbow('9').red
   end
 end

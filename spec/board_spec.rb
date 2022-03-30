@@ -1,4 +1,3 @@
-Bundler.require(:default)
 
 require './board.rb'
 require './pieces.rb'
@@ -24,12 +23,5 @@ describe Board do
       expect(board.insert_to_cell('a', 'g3')).to eq board.state[6][6]
       expect(board.insert_to_cell('a', 'j9')).to eq board.state[0][9]
     end
-  end
-end
-
-describe '#cell_index' do
-  it 'returns the correct index values to access a cell from the board array' do
-    expect(cell_index('b5')).to eq [4, 1]
-    expect(cell_index('j0')).to eq [9, 9]
   end
 end

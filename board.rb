@@ -1,8 +1,13 @@
 require './pieces.rb'
 require './gameplay.rb'
+require 'rubygems'
+require 'bundler/setup'
+Bundler.require(:default)
+
 
 # Responsible for holding game state, rendering board and querying board information
 class Board
+  include Gameplay
   attr_accessor :state, :player1_turn
 
   DEFAULT_BOARD = [
@@ -68,21 +73,7 @@ class Board
   end
 end
 
-# returns two cell index values from a grid coordinate
-def cell_index(coordinate)
-  coordinate = coordinate.strip
 
-  # hard coded lookups
-  y_lookup = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
-  x_lookup = { 'a' => 0, 'b' => 1, 'c' => 2, 'd' => 3, 'e' => 4, 'f' => 5, 'g' => 6, 'h' => 7, 'i' => 7, 'j' => 9 }
-
-  # converts grid co-ordinates to equivalent array indicies
-  grid_letter_equiv = coordinate.chars[0]
-  grid_number_equiv = coordinate.chars[1].to_i
-  y_index = y_lookup[grid_number_equiv]
-  x_index = x_lookup[grid_letter_equiv]
-  [y_index, x_index]
-end
 
 
 

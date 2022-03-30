@@ -94,7 +94,7 @@ class Sergeant < Piece
   attr_reader :player1, :moveable, :value, :symbol
 
   def initialize(player1 = true)
-    super(player1: player1, moveable: true, value: 4, icon: '7')
+    super(player1:, moveable: true, value: 4, icon: '7')
   end
 end
 
