@@ -39,12 +39,13 @@ module Gameplay
     x1 = cell_index(coordinates[0])[1]
     x2 = cell_index(coordinates[1])[1]
 
-    y_dist = abs(y1 - y2)
-    x_dist = abs(x1 - x2)
+    y_dist = (y1 - y2).abs
+    x_dist = (x1 - x2).abs
 
     unless (x_dist == 1 && y_dist.zero?) || (x_dist.zero? && y_dist == 1)
       raise InvalidMove
     end
+    true
   end
 
   # checks if selected tile is valid to be moved.
@@ -52,13 +53,15 @@ module Gameplay
   def valid_tile_selected(coordinate)
     moveable = self.cell_contents(coordinate).moveable
     player1 = self.cell_contents(coordinate).player1
+
     if (self.player1_turn == player1) && moveable
-      return true
+      true
     else
       raise InvalidMove
     end
   end
 
+  
   # returns two cell index values from a grid coordinate
   def cell_index(coordinate)
     coordinate = coordinate.strip

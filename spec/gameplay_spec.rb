@@ -23,7 +23,35 @@ describe Board do
   describe '#valid_tile_selected' do
     it 'returns true with a valid tile selection' do
       expect(board.valid_tile_selected('j0')).to eq true
+      expect(board.valid_tile_selected('e0')).to eq true
+      expect(board.valid_tile_selected('a3')).to eq true
     end
+    it 'raises InvalidMove exception with invalid selection' do
+      # opponent tile
+      expect { board.valid_tile_selected('a6') }.to raise_error(InvalidMove)
+      # bomb
+      expect { board.valid_tile_selected('e3') }.to raise_error(InvalidMove)
+      # empty tile
+      expect { board.valid_tile_selected('a4') }.to raise_error(InvalidMove)
+      # water
+      expect { board.valid_tile_selected('c4') }.to raise_error(InvalidMove)
+    end
+  end
+
+  describe '#valid_move_distance' do
+    it 'returns true with a valid move distance' do
+      expect(board.valid_move_distance(%w[b3 b4])).to eq true
+      expect(board.valid_move_distance(%w[b3 b2])).to eq true
+      expect(board.valid_move_distance(%w[b3 c3])).to eq true
+      expect(board.valid_move_distance(%w[b3 a3])).to eq true
+    end
+    it 'raises InvalidMove exception with an invalid move distance' do
+      expect { board.valid_move_distance(%w[b3 c4]) }.to raise_error(InvalidMove)
+      expect { board.valid_move_distance(%w[b3 a2]) }.to raise_error(InvalidMove)
+      expect { board.valid_move_distance(%w[b3 b9]) }.to raise_error(InvalidMove)
+      expect { board.valid_move_distance(%w[b3 j3]) }.to raise_error(InvalidMove)
+      expect { board.valid_move_distance(%w[b3 e9]) }.to raise_error(InvalidMove)
+    end  
   end
 
   describe '#cell_index' do

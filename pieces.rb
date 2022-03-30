@@ -1,28 +1,3 @@
-# Empty tile board piece
-class EmptyTile
-  attr_reader :moveable, :symbol, :targetable
-
-  def initialize
-    @player1 = nil
-    @moveable = false
-    @targetable = true
-    @value = nil
-    @symbol = Rainbow('■').white
-  end
-end
-
-# Water board piece
-class Water
-  attr_reader :moveable, :symbol, :targetable
-
-  def initialize
-    @player1 = nil
-    @moveable = false
-    @targetable = false
-    @symbol = Rainbow('■').blue
-  end
-end
-
 # generic piece class to make class inheritence and testing easier
 # not used in game
 class Piece
@@ -41,6 +16,28 @@ class Piece
     end
   end
 end
+
+# Empty tile board piece
+class EmptyTile < Piece
+  attr_reader :player1, :moveable, :value, :symbol
+  
+  def initialize(player1 = nil)
+    super(player1: player1, moveable: false, value: 10, icon: '■')
+      @symbol = Rainbow('■').white
+  end
+end
+
+# Water board piece
+class Water < Piece
+  attr_reader :player1, :moveable, :value, :symbol
+
+    def initialize(player1 = nil)
+    super(player1: nil, moveable: false, value: 10, icon: '■')
+      @symbol = Rainbow('■').blue
+      @targetable = false
+    end
+end
+
 
 class Marshall < Piece
   attr_reader :player1, :moveable, :value, :symbol
@@ -134,6 +131,6 @@ class Bomb < Piece
   attr_reader :player1, :moveable, :value, :symbol
 
   def initialize(player1 = true)
-    super(player1: player1, moveable: true, value: 11, icon: 'B')
+    super(player1: player1, moveable: false, value: 11, icon: 'B')
   end
 end

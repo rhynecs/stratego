@@ -8,3 +8,5 @@ require './gameplay.rb'
 
 game = Board.new
 game.render
+
+game.user_coordinates
