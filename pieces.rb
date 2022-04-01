@@ -123,7 +123,7 @@ class Flag < Piece
   attr_reader :player1, :moveable, :value, :symbol
 
   def initialize(player1 = true)
-    super(player1: player1, moveable: true, value: 0, icon: 'F')
+    super(player1: player1, moveable: false, value: 0, icon: 'F')
   end
 end
 

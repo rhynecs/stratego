@@ -5,12 +5,8 @@ Bundler.require(:default)
 require './board'
 require './pieces'
 require './gameplay'
+require './menus'
 
-game = Board.new
-game.render
+include Menu
 
-game_over = false
-until game_over
-  game.move
-  game_over = game.won?
-end
+main_menu
