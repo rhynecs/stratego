@@ -9,6 +9,8 @@ require './gameplay'
 game = Board.new
 game.render
 
-while true
-    game.move
+game_over = false
+until game_over
+  game.move
+  game_over = game.won?
 end

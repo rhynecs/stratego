@@ -1,5 +1,30 @@
 # gets two coordinates from user input. Prompts until valid input is recieved.
 module Gameplay
+  def won?
+    player1_has_flag = false
+    player2_has_flag = false
+    @state.each do |line|
+      line.each do |element|
+        if element.instance_of? Flag
+          if element.player1
+            player1_has_flag = true
+          else
+            player2_has_flag = true
+          end
+        end
+      end
+    end
+    if !player1_has_flag
+      puts "green wins!"
+      true
+    elsif !player2_has_flag
+      puts "red wins!"
+      true
+    else
+      false
+    end
+  end
+
   def move
     begin
       # check move validity
@@ -7,7 +32,7 @@ module Gameplay
       valid_move_distance(coordinates)
       valid_origin_selected(coordinates[0])
       valid_target_selected(coordinates[1])
-    rescue InvalidMove => e
+    rescue InvalidMove, InvalidUserInput => e
       puts e.message
       retry
     end
@@ -47,7 +72,7 @@ module Gameplay
       coordinates = gets
     end
     coordinates = coordinates.chomp.split(' ')
-    if coordinates[0] == coordinates[1]
+    if coordinates[0] == coordinates[1] || coordinates[0].nil? || coordinates[1].nil?
       raise InvalidUserInput
     end
 

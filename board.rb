@@ -12,12 +12,12 @@ class Board
 
   DEFAULT_BOARD = [
     [Major.new(false), Lieutenant.new(false), Miner.new(false), Miner.new(false), Miner.new(false), 
-      Captain.new(false), Bomb.new(false), Sergeant.new(false), Bomb.new(false), Flag.new(false)],
+      Captain.new(false), Bomb.new(false), Sergeant.new(false), Bomb.new(false), Lieutenant.new(false)],
     [Captain.new(false), Scout.new(false), Captain.new(false), Sergeant.new(false), Lieutenant.new(false), 
       Scout.new(false), Scout.new(false), Bomb.new(false), Sergeant.new(false), Bomb.new(false)],
     [Scout.new(false), Major.new(false), Scout.new(false), Scout.new(false), Marshall.new(false), 
       Major.new(false), Captain.new(false), Miner.new(false), Bomb.new(false), Sergeant.new(false)],
-    [Lieutenant.new(false), Scout.new(false), Colonel.new(false), Miner.new(false), Lieutenant.new(false), 
+    [Flag.new(false), Scout.new(false), Colonel.new(false), Miner.new(false), Lieutenant.new(false), 
       Scout.new(false), Colonel.new(false), Spy.new(false), General.new(false), Bomb.new(false)],
     [EmptyTile.new, EmptyTile.new, Water.new, Water.new, EmptyTile.new, 
       EmptyTile.new, Water.new, Water.new, EmptyTile.new, EmptyTile.new],
