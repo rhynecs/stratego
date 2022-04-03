@@ -53,12 +53,16 @@ module Gameplay
   def battle(coordinates)
     attacker_value = cell_contents(coordinates[0]).value
     defender_value = cell_contents(coordinates[1]).value
+    self.turn_info << "attacker #{cell_contents(coordinates[0]).symbol} "
     if attacker_value > defender_value
+      self.turn_info << "defeats defender #{cell_contents(coordinates[1]).symbol}"
       insert_to_cell(cell_contents(coordinates[0]), coordinates[1])
       insert_to_cell(EmptyTile.new, coordinates[0])
     elsif attacker_value < defender_value
+      self.turn_info << "loses to defender #{cell_contents(coordinates[1]).symbol}"
       insert_to_cell(EmptyTile.new, coordinates[0])
     else
+      self.turn_info << "and defender #{cell_contents(coordinates[1]).symbol} each defeat each other in battle"
       insert_to_cell(EmptyTile.new, coordinates[0])
       insert_to_cell(EmptyTile.new, coordinates[1])
     end
@@ -81,6 +85,7 @@ module Gameplay
         raise InvalidUserInput
       end
     end
+    self.turn_info << "move #{coordinates} :"
     coordinates
   end
 

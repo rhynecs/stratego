@@ -7,8 +7,8 @@ Bundler.require(:default)
 # Responsible for holding game state, rendering board and querying board information
 class Board
   include Gameplay
-  attr_accessor :state, :player1_turn
-
+  attr_accessor :state, :player1_turn, :turn_info
+  
   DEFAULT_BOARD = [
     [Major.new(false), Lieutenant.new(false), Miner.new(false), Miner.new(false), Miner.new(false), 
       Captain.new(false), Bomb.new(false), Sergeant.new(false), Bomb.new(false), Lieutenant.new(false)],
@@ -35,6 +35,7 @@ class Board
   def initialize(board = DEFAULT_BOARD)
     @state = board
     @player1_turn = true
+    @turn_info = ''
   end
 
   # if openboard is passed in as an ARGV, render will not hide enemy units

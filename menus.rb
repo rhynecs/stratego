@@ -23,22 +23,27 @@ module Menu
   
   def play_game
     game = Board.new
-    game.render
     until game.won?
+      game.render
       game.move
+      print "\n" * 50
+      puts game.turn_info
+      game.turn_info = ''
+      turn_end_menu
     end
+    main_menu
+  end
+
+  def turn_end_menu
+    prompt = TTY::Prompt.new
+    prompt.keypress("Press key when next player is ready")
   end
 
   def about
     parsed = TTY::Markdown.parse_file('./markdown/about.md')
     puts parsed
-    choices = ['menu']
     prompt = TTY::Prompt.new
-    selection = prompt.select("help", choices)
-    case selection
-    when 'menu'
-      main_menu
-    end
+    prompt.keypress("Press key to return to menu")
   end
 
   def help1
