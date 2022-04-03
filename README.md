@@ -64,7 +64,12 @@ Screenshots of board:
 
 ### Installing the app
 
-### Using the app
+**Running the app**
+1) Open terminal
+2) Use the cd (change directory) command to navigate to within the /src/ folder
+3) Type ./run_app.sh to play
+
+**Using the app**
 - Main menus can be navigated by arrow keys (up/down) and enter to confirm choice
 - Once in game, enter two grid coordinates seperated by a space to move pieces.
   - First-coordinate second-coordinate
@@ -73,3 +78,4 @@ Screenshots of board:
   - a4 a5
   - etc
 - Refer to help menu for game rules
+- App accepts openboard as and ARGV, and disables board hiding / fog of war.
