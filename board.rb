@@ -4,7 +4,6 @@ require 'rubygems'
 require 'bundler/setup'
 Bundler.require(:default)
 
-
 # Responsible for holding game state, rendering board and querying board information
 class Board
   include Gameplay
@@ -38,30 +37,66 @@ class Board
     @player1_turn = true
   end
 
+  # if openboard is passed in as an ARGV, render will not hide enemy units
   def render
-    # print top horizontal axis
-    x_axis = %w[a b c d e f g h i j]
-    print ' ' * 4
-    x_axis.each { |letter| print Rainbow("#{letter}  ").white }
-    puts '', Rainbow(' ' * 3 + '-' * 30).white
+    if ARGV.empty?
+      arg_option = ''
+    else
+      arg_option = ARGV[0].chomp
+    end
+    if arg_option == 'openboard'
+      top_axis
+      i = 9
+      @state.each do |line_arr|
+        print Rainbow("#{i}|  ").white
+        line_arr.each { |element| print "#{element.symbol}  "}
+        print Rainbow("|#{i}").white
+        puts
+        i -= 1
+      end
+      bottom_axis
+    else
+      hidden_render
+    end
+  end
 
-    # print vertical axis and board
+  def hidden_render
+    top_axis
     i = 9
     @state.each do |line_arr|
       print Rainbow("#{i}|  ").white
-      line_arr.each { |element| print "#{element.symbol}  "}
+      line_arr.each do |element|
+        if element.player1 == @player1_turn || element.player1.nil?
+          print "#{element.symbol  }  "
+        else
+          if @player1_turn
+            print Rainbow("*  ").green
+          else
+            print Rainbow("*  ").red
+          end
+        end
+      end
       print Rainbow("|#{i}").white
       puts
       i -= 1
     end
+    bottom_axis
+  end
 
-    # print bottom horizontal axis
+  def top_axis
+    x_axis = %w[a b c d e f g h i j]
+    print ' ' * 4
+    x_axis.each { |letter| print Rainbow("#{letter}  ").white }
+    puts '', Rainbow(' ' * 3 + '-' * 30).white
+  end
+
+  def bottom_axis
+    x_axis = %w[a b c d e f g h i j]
     puts Rainbow(' ' * 3 + '-' * 30).white
     print ' ' * 4
     x_axis.each { |letter| print Rainbow("#{letter}  ").white }
   end
 
-  # returns the contents of a cell from a grid_reference
   def cell_contents(coordinate)
     board_index = cell_index(coordinate)
     @state[board_index[0]][board_index[1]]
@@ -72,10 +107,3 @@ class Board
     @state[board_index[0]][board_index[1]] = contents
   end
 end
-
-
-
-
-
-
-

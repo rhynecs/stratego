@@ -8,5 +8,4 @@ require './gameplay'
 require './menus'
 
 include Menu
-
 main_menu

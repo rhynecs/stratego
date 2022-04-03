@@ -69,7 +69,7 @@ module Gameplay
     while coordinates.empty?
       puts ''
       puts 'Enter coordinate values:'
-      coordinates = gets
+      coordinates = STDIN.gets
     end
     coordinates = coordinates.chomp.split(' ')
     if coordinates[0] == coordinates[1] || coordinates[0].nil? || coordinates[1].nil?
