@@ -20,7 +20,7 @@ module Menu
       about
     end
   end
-  
+ 
   def play_game
     game = Board.new
     until game.won?
@@ -44,6 +44,7 @@ module Menu
     puts parsed
     prompt = TTY::Prompt.new
     prompt.keypress("Press key to return to menu")
+    main_menu
   end
 
   def help1

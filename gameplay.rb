@@ -54,7 +54,16 @@ module Gameplay
     attacker_value = cell_contents(coordinates[0]).value
     defender_value = cell_contents(coordinates[1]).value
     self.turn_info << "attacker #{cell_contents(coordinates[0]).symbol} "
-    if attacker_value > defender_value
+
+    if (attacker_value == 3) && (defender_value == 11)
+      self.turn_info << "defuses bomb #{cell_contents(coordinates[1]).symbol}"
+      insert_to_cell(cell_contents(coordinates[0]), coordinates[1])
+      insert_to_cell(EmptyTile.new, coordinates[0])
+    elsif (attacker_value == 1) && (defender_value == 10)
+      self.turn_info << "has vanquished #{cell_contents(coordinates[1]).symbol}"
+      insert_to_cell(cell_contents(coordinates[0]), coordinates[1])
+      insert_to_cell(EmptyTile.new, coordinates[0])
+    elsif attacker_value > defender_value
       self.turn_info << "defeats defender #{cell_contents(coordinates[1]).symbol}"
       insert_to_cell(cell_contents(coordinates[0]), coordinates[1])
       insert_to_cell(EmptyTile.new, coordinates[0])
@@ -98,9 +107,14 @@ module Gameplay
 
     y_dist = (y1 - y2).abs
     x_dist = (x1 - x2).abs
-
-    unless (x_dist == 1 && y_dist.zero?) || (x_dist.zero? && y_dist == 1)
-      raise InvalidMove
+    if cell_contents(coordinates[0]).instance_of? Scout
+      unless (x_dist.positive? && y_dist.zero?) || (x_dist.zero? && y_dist.positive?)
+        raise InvalidMove
+      end
+    else
+      unless (x_dist == 1 && y_dist.zero?) || (x_dist.zero? && y_dist == 1)
+        raise InvalidMove
+      end
     end
     true
   end
