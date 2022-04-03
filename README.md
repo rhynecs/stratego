@@ -1,8 +1,8 @@
-# stratego
+# T1A3 Henry Stevens: Stratego
 
 ## Repo
 
-[available on github](https://github.com/rhynecs/stratego)
+[Available on github](https://github.com/rhynecs/stratego)
 
 ## Code style guide
 
@@ -27,4 +27,49 @@ Code will attempt to follow the style conventions outlines in the [Ruby Style Gu
 - Capturing flag wins the game
 - Bombs destroy all units except the miner (8)
 - The spy can kill the marshall if it attacks first (S)
-- The scout can move any number of tiles in a direction and 
+- The scout can move any number of tiles in one direction and attack on the same turn
+  - Cannot 'hop' over any pieces
+- All other pieces function as intended and can battle and attack each other correctly
+
+### Multiplayer functionality
+- Game alternates player turn after every move
+- Enemy squares are hidden to maintain 'fog of war'
+  - 'openboard' as an ARGV disables this square hiding
+- There is a waiting screen before moves to allow users to hand over control to the other player
+  - Prevents cheating / peaking at enemy setup
+  - Shows the turn entered and any battle outcome
+- Capturing flag triggers win message and returns to menu
+
+### Menu system
+- Main menu contains play, help and about option
+- Fully navigatable
+- Buttons implemented with TTY-prompt
+- Help menus implemented with TTY-markdown and TTY-table
+
+## Implementation plan
+
+Kanban board available at [Trello](https://trello.com/b/NukWEPam/t1a3-stratego)
+
+Screenshots of board:
+
+![Kanban board](./docs/whole_kanban.png)
+![Display board](./docs/display_board.png)
+![Piece movement](./docs/piece_movement.png)
+![Basic pieces](./docs/basic_pieces.png)
+![Advanced pieces](./docs/advanced_pieces.png)
+![Multiplayer functionality](./docs/multiplayer.png)
+![Main menus](./docs/main_menu.png)
+
+## Help Documentation
+
+### Installing the app
+
+### Using the app
+- Main menus can be navigated by arrow keys (up/down) and enter to confirm choice
+- Once in game, enter two grid coordinates seperated by a space to move pieces.
+  - First-coordinate second-coordinate
+  - a3 a4
+  - b6 b4
+  - a4 a5
+  - etc
+- Refer to help menu for game rules
