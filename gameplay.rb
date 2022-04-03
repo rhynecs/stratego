@@ -98,7 +98,8 @@ module Gameplay
     coordinates
   end
 
-  # checks that the distance the selected tile moves is
+  # checks that the distance the selected tile moves is legal
+  # checks that the scout is only travelling in 1 direction and all tiles between are 
   def valid_move_distance(coordinates)
     y1 = cell_index(coordinates[0])[0]
     y2 = cell_index(coordinates[1])[0]
@@ -110,6 +111,21 @@ module Gameplay
     if cell_contents(coordinates[0]).instance_of? Scout
       unless (x_dist.positive? && y_dist.zero?) || (x_dist.zero? && y_dist.positive?)
         raise InvalidMove
+      end
+      if y1 == y2
+        x_arr = (x1...x2).drop(1).to_a
+        x_arr.each do |x_cord|
+          unless @state[y1][x_cord].instance_of? EmptyTile
+            raise InvalidMove
+          end
+        end
+      else
+        y_arr = (y1...y2).drop(1).to_a
+        y_arr.each do |y_cord|
+          unless @state[y_cord][x1].instance_of? EmptyTile
+            raise InvalidMove
+          end
+        end
       end
     else
       unless (x_dist == 1 && y_dist.zero?) || (x_dist.zero? && y_dist == 1)
@@ -142,7 +158,7 @@ module Gameplay
       raise InvalidMove
     end
   end
-  
+
   # returns two cell index values from a grid coordinate
   def cell_index(coordinate)
     coordinate = coordinate.strip

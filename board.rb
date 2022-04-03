@@ -20,7 +20,7 @@ class Board
       Scout.new(false), Colonel.new(false), Spy.new(false), General.new(false), Bomb.new(false)],
     [EmptyTile.new, EmptyTile.new, Water.new, Water.new, EmptyTile.new, 
       EmptyTile.new, Water.new, Water.new, EmptyTile.new, EmptyTile.new],
-    [EmptyTile.new, EmptyTile.new, Water.new, EmptyTile.new, EmptyTile.new, 
+    [EmptyTile.new, EmptyTile.new, Water.new, Water.new, EmptyTile.new, 
       EmptyTile.new, Water.new, Water.new, EmptyTile.new, EmptyTile.new],
     [Scout.new, Scout.new, Scout.new, Scout.new, Bomb.new, 
       Bomb.new, Scout.new, Lieutenant.new, Bomb.new, Bomb.new],
