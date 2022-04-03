@@ -17,7 +17,7 @@ class Piece
   end
 end
 
-# Empty tile board piece
+# empty tile board piece
 class EmptyTile < Piece
   attr_reader :player1, :moveable, :value, :symbol
   
@@ -27,7 +27,7 @@ class EmptyTile < Piece
   end
 end
 
-# Water board piece
+# water board piece
 class Water < Piece
   attr_reader :player1, :moveable, :value, :symbol
 
@@ -38,7 +38,7 @@ class Water < Piece
     end
 end
 
-
+# start of regular game pieces
 class Marshall < Piece
   attr_reader :player1, :moveable, :value, :symbol
 

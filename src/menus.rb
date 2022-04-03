@@ -5,7 +5,6 @@ Bundler.require(:default)
 require './board'
 require './gameplay'
 
-
 module Menu
   def main_menu
     choices = %w[play help about]
@@ -20,15 +19,15 @@ module Menu
       about
     end
   end
- 
+
   def play_game
     game = Board.new
     until game.won?
       game.render
       game.move
-      print "\n" * 50
+      print "\n" * 50 # to hide board
       puts game.turn_info
-      game.turn_info = ''
+      game.turn_info = '' # resets turn info, ready for next turn
       turn_end_menu
     end
     main_menu

@@ -2,4 +2,4 @@
 
 gem install bundler
 bundle install --local
-ruby main.rb
+ruby ./main.rb

@@ -8,7 +8,7 @@ Bundler.require(:default)
 class Board
   include Gameplay
   attr_accessor :state, :player1_turn, :turn_info
-  
+
   DEFAULT_BOARD = [
     [Major.new(false), Lieutenant.new(false), Miner.new(false), Miner.new(false), Miner.new(false), 
       Captain.new(false), Bomb.new(false), Sergeant.new(false), Bomb.new(false), Flag.new(false)],
@@ -38,7 +38,7 @@ class Board
     @turn_info = ''
   end
 
-  # if openboard is passed in as an ARGV, render will not hide enemy units
+  # checks if 'openboard' ARGV is passed in and renders board accordingly
   def render
     if ARGV.empty?
       arg_option = ''
@@ -61,6 +61,7 @@ class Board
     end
   end
 
+  # prints board with fog of war enabled
   def hidden_render
     top_axis
     i = 9
@@ -84,6 +85,7 @@ class Board
     bottom_axis
   end
 
+  # prints top part of board
   def top_axis
     x_axis = %w[a b c d e f g h i j]
     print ' ' * 4
@@ -91,6 +93,7 @@ class Board
     puts '', Rainbow(' ' * 3 + '-' * 30).white
   end
 
+  # prints bottom part of board
   def bottom_axis
     x_axis = %w[a b c d e f g h i j]
     puts Rainbow(' ' * 3 + '-' * 30).white
@@ -98,11 +101,13 @@ class Board
     x_axis.each { |letter| print Rainbow("#{letter}  ").white }
   end
 
+  # returns the piece object for a given coordinate
   def cell_contents(coordinate)
     board_index = cell_index(coordinate)
     @state[board_index[0]][board_index[1]]
   end
 
+  # inserts an object to a cell for a given coordinate
   def insert_to_cell(contents, coordinate)
     board_index = cell_index(coordinate)
     @state[board_index[0]][board_index[1]] = contents
