@@ -1,12 +1,30 @@
 # T1A3 Henry Stevens: Stratego
 
-## Repo
 
-[Available on github](https://github.com/rhynecs/stratego)
+## Installing the app
 
-## Code style guide
+**Running the app**
+1) Open terminal
+2) Use the cd (change directory) command to navigate to within the /src/ folder
+3) Type ./run_app.sh to install dependencies and play
 
-Code will attempt to follow the style conventions outlines in the [Ruby Style Guide](https://rubystyle.guide/)
+**Using the app**
+- Main menus can be navigated by arrow keys (up/down) and enter to confirm choice
+- Once in game, enter two grid coordinates seperated by a space to move pieces.
+  - First-coordinate second-coordinate
+  - a3 a4
+  - b6 b4
+  - a4 a5
+  - etc
+- Refer to help menu for game rules
+- App accepts openboard as and ARGV, and disables board hiding / fog of war.
+
+## Screenshots
+
+![Gameboard board](./img/gameboard.png)
+![Rules menu section](./img/rules.png)
+
+
 
 ## Features
 
@@ -45,37 +63,3 @@ Code will attempt to follow the style conventions outlines in the [Ruby Style Gu
 - Fully navigatable
 - Buttons implemented with TTY-prompt
 - Help menus implemented with TTY-markdown and TTY-table
-
-## Implementation plan
-
-Kanban board available at [Trello](https://trello.com/b/NukWEPam/t1a3-stratego)
-
-Screenshots of board:
-
-![Kanban board](./docs/whole_kanban.png)
-![Display board](./docs/display_board.png)
-![Piece movement](./docs/piece_movement.png)
-![Basic pieces](./docs/basic_pieces.png)
-![Advanced pieces](./docs/advanced_pieces.png)
-![Multiplayer functionality](./docs/multiplayer.png)
-![Main menus](./docs/main_menu.png)
-
-## Help Documentation
-
-### Installing the app
-
-**Running the app**
-1) Open terminal
-2) Use the cd (change directory) command to navigate to within the /src/ folder
-3) Type ./run_app.sh to play
-
-**Using the app**
-- Main menus can be navigated by arrow keys (up/down) and enter to confirm choice
-- Once in game, enter two grid coordinates seperated by a space to move pieces.
-  - First-coordinate second-coordinate
-  - a3 a4
-  - b6 b4
-  - a4 a5
-  - etc
-- Refer to help menu for game rules
-- App accepts openboard as and ARGV, and disables board hiding / fog of war.
